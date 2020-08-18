@@ -28,8 +28,6 @@
     },
     "homepage": "https://github.com/samurayii/template-project-ts-module.git#readme",
     "devDependencies": {
-        "@types/chalk": "^2.2.0",
-        "@types/find-package-json": "^1.1.1",
         "@types/mocha": "^8.0.0",
         "@types/node": "^14.0.23",
         "@typescript-eslint/eslint-plugin": "^3.6.1",
@@ -41,7 +39,6 @@
         "npm-check-updates": "^7.0.2",
         "rimraf": "^3.0.2",
         "ts-node": "^8.10.2",
-        "rimraf": "^3.0.2",
         "typescript": "^3.9.7"
     },
     "remover": {
