@@ -6,8 +6,8 @@
     "scripts": {
         "up": "ncu && ncu -u && rimraf ./package-lock.json && npm i",
         "ncu": "ncu",
-        "pub": "npm run build && npm publish ./dist && rimraf ./dist",
-        "build": "rimraf ./dist && npm run lint && tsc && json-key-remover && copy-files-from-to",
+        "pub": "npm run build && npm publish ./dist",
+        "build": "rimraf ./dist && npm run lint && tsc && json-key-remover && files-copier -e build",
         "lint": "eslint \"./src/**/*.{js,ts}\" --quiet --fix && tsc --noEmit",
         "lint:tests": "eslint \"./tests/**/*.{js,ts}\" --quiet --fix",
         "test": "mocha -r ts-node/register --config ./tests/mocha.config.json"
@@ -36,7 +36,7 @@
         "json-key-remover": "^0.0.2",
         "mocha": "^8.0.1",
         "npm-check-updates": "^7.0.2",
-        "copy-files-from-to": "^3.1.4",
+        "files-copier": "^0.1.1",
         "rimraf": "^3.0.2",
         "ts-node": "^8.10.2",
         "typescript": "^3.9.7"
@@ -47,13 +47,19 @@
         "remove": [
             "remover",
             "devDependencies",
-            "scripts"
+            "scripts",
+            "copier"
         ]
     },
-    "copyFiles": [
-        {
-            "from": "README.md",
-            "to": "./dist/README.md"
+    "copier": {
+        "build": {
+            "rewrite": true,
+            "copy": [
+                {
+                    "from": "README.md",
+                    "to": "./dist/README.md"
+                }
+            ]
         }
-    ]
+    }
 }
