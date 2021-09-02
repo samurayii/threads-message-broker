@@ -26,6 +26,7 @@ export class ThreadsMessageBrokerMaster implements IThreadsMessageBroker {
         this._subscribers_list = {};
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-types
     subscribe (event_name: string, fn: Function): string {
 
         if (this._subscribers_list[event_name] === undefined) {
@@ -53,7 +54,7 @@ export class ThreadsMessageBrokerMaster implements IThreadsMessageBroker {
             }
         }
 
-    };
+    }
 
     addThread (worker_name: string, worker: Worker): void {
         
@@ -85,7 +86,7 @@ export class ThreadsMessageBrokerMaster implements IThreadsMessageBroker {
 
             }
 
-        }
+        };
 
         worker.on("error", () => {
             delete_worker(worker_name);
