@@ -1,7 +1,7 @@
 {
-    "name": "template",
-    "version": "0.0.1",
-    "description": "Template for nodejs module with typescript",
+    "name": "threads-message-broker",
+    "version": "0.1.1",
+    "description": "Message broker for threads",
     "main": "index.js",
     "scripts": {
         "up": "ncu && ncu -u && rimraf ./package-lock.json && npm i",
@@ -10,33 +10,33 @@
         "build": "rimraf ./dist && tsc && json-key-remover && files-copier -e build",
         "lint": "eslint \"./src/**/*.{js,ts}\" --quiet --fix && tsc --noEmit",
         "lint:tests": "eslint \"./tests/**/*.{js,ts}\" --quiet --fix",
-        "test": "mocha -r ts-node/register --config ./tests/mocha.config.json"
+        "test": "ts-node ./tests/scripts/main.ts"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/samurayii/template-project-ts-module.git"
+        "url": "git+https://github.com/samurayii/threads-message-broker.git"
     },
     "keywords": [
-        "templates",
+        "thread",
         "typescript",
-        "module"
+        "message",
+        "broker"
     ],
     "author": "Nuzhnov A.A.",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/samurayii/template-project-ts-module/issues"
+        "url": "https://github.com/samurayii/threads-message-broker/issues"
     },
-    "homepage": "https://github.com/samurayii/template-project-ts-module.git#readme",
+    "homepage": "https://github.com/samurayii/threads-message-broker.git#readme",
     "devDependencies": {
-        "@types/mocha": "^9.0.0",
         "@types/node": "^16.7.10",
+        "@types/uuid": "^8.3.1",
         "@typescript-eslint/eslint-plugin": "^4.30.0",
         "@typescript-eslint/parser": "^4.30.0",
         "eslint": "^7.32.0",
         "files-copier": "^0.1.1",
         "json-key-remover": "^0.0.3",
-        "mocha": "^9.1.1",
-        "npm-check-updates": "^11.8.3",
+        "npm-check-updates": "^11.8.4",
         "rimraf": "^3.0.2",
         "ts-node": "^10.2.1",
         "typescript": "^4.4.2"
@@ -61,5 +61,8 @@
                 }
             ]
         }
+    },
+    "dependencies": {
+        "uuid": "^8.3.2"
     }
 }
