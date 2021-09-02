@@ -7,7 +7,7 @@
         "up": "ncu && ncu -u && rimraf ./package-lock.json && npm i",
         "ncu": "ncu",
         "pub": "npm run build && npm publish ./dist",
-        "build": "rimraf ./dist && npm run lint && tsc && json-key-remover && files-copier -e build",
+        "build": "rimraf ./dist && tsc && json-key-remover && files-copier -e build",
         "lint": "eslint \"./src/**/*.{js,ts}\" --quiet --fix && tsc --noEmit",
         "lint:tests": "eslint \"./tests/**/*.{js,ts}\" --quiet --fix",
         "test": "mocha -r ts-node/register --config ./tests/mocha.config.json"
@@ -28,18 +28,18 @@
     },
     "homepage": "https://github.com/samurayii/template-project-ts-module.git#readme",
     "devDependencies": {
-        "@types/mocha": "^8.2.2",
-        "@types/node": "^15.0.1",
-        "@typescript-eslint/eslint-plugin": "^4.22.0",
-        "@typescript-eslint/parser": "^4.22.0",
-        "eslint": "^7.25.0",
+        "@types/mocha": "^9.0.0",
+        "@types/node": "^16.7.10",
+        "@typescript-eslint/eslint-plugin": "^4.30.0",
+        "@typescript-eslint/parser": "^4.30.0",
+        "eslint": "^7.32.0",
         "files-copier": "^0.1.1",
         "json-key-remover": "^0.0.3",
-        "mocha": "^8.3.2",
-        "npm-check-updates": "^11.5.7",
+        "mocha": "^9.1.1",
+        "npm-check-updates": "^11.8.3",
         "rimraf": "^3.0.2",
-        "ts-node": "^9.1.1",
-        "typescript": "^4.2.4"
+        "ts-node": "^10.2.1",
+        "typescript": "^4.4.2"
     },
     "remover": {
         "target": "./package.json",

@@ -1,21 +1,14 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "resolveJsonModule": true,
-        "esModuleInterop": false,
-        "allowSyntheticDefaultImports": true,
-        "target": "es2017",
-        "noImplicitAny": true,
         "moduleResolution": "node",
-        "sourceMap": false,
-        "outDir": "dist",
-        "baseUrl": ".",
-        "declaration": true,
+        "noImplicitAny": true,
+        "resolveJsonModule": true,
+        "target": "es2017",
         "removeComments": true,
         "emitDecoratorMetadata": true,
-        "experimentalDecorators": true
-    },
-    "include": [
-        "**/*"
-    ]
+        "experimentalDecorators": true,
+        "baseUrl": "./",
+        "rootDirs": ["./"]
+    }
 }
