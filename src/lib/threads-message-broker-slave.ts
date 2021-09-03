@@ -40,14 +40,18 @@ export class ThreadsMessageBrokerSlave implements IThreadsMessageBroker {
 
     }
 
-    publish (event_name: string, data: unknown): void {
+    publish (event_name: string, data: unknown, local_flag: boolean = false): void {
 
         if (this._subscribers_list[event_name] !== undefined) {
             for (const id_subscriber in this._subscribers_list[event_name]) {
                 const subscriber = this._subscribers_list[event_name][id_subscriber];
                 subscriber.emit(data);
             }
-        }      
+        }
+        
+        if (local_flag === true) {
+            return;
+        }
 
         const parent_message: IThreadsMessageBrokerMessage = {
             command: "publish",

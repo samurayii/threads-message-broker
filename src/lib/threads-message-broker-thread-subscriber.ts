@@ -22,6 +22,10 @@ export class ThreadsMessageBrokerThreadSubscriber implements IThreadsMessageBrok
         return this._worker_name;
     }
 
+    get type (): "local" | "thread" {
+        return "thread";
+    }
+
     emit (data: unknown): void {
 
         const message: IThreadsMessageBrokerMessage = {

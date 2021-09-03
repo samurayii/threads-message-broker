@@ -137,7 +137,7 @@ export class ThreadsMessageBrokerMaster implements IThreadsMessageBroker {
 
     }
 
-    publish (event_name: string, data: unknown): void {
+    publish (event_name: string, data: unknown, local_flag: boolean = false): void {
 
         if (this._subscribers_list[event_name] === undefined) {
             return;
@@ -145,6 +145,9 @@ export class ThreadsMessageBrokerMaster implements IThreadsMessageBroker {
 
         for (const id_subscriber in this._subscribers_list[event_name]) {
             const subscriber = this._subscribers_list[event_name][id_subscriber];
+            if (subscriber.type !== "local" && local_flag === true) {
+                continue;
+            }
             subscriber.emit(data);
         }
     }

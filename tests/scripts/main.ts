@@ -58,7 +58,39 @@ worker2.on("error", (error) => {
 });
 
 worker2.on("exit", (code) => {
-    console.error(`[worker2] Closed with code ${code}`);
+
+    console.log(`[worker2] Closed with code ${code}`);
+
+    const worker3 = new worker_threads.Worker(path.resolve(__dirname, "./thread-3.js"), { 
+        workerData: "{}",
+        stderr: true,
+        stdout: true,
+        stdin: true
+    });
+    
+    broker.addThread("worker3", worker3);
+
+    worker3.stderr.on("data", (data) => {
+        console.error(`[worker3] ${data.toString().trim()}`);
+    });
+    
+    worker3.stdout.on("data", (data) => {
+        console.log(`[worker3] ${data.toString().trim()}`);
+    });
+    
+    worker3.on("error", (error) => {
+        console.error(`[worker3] Process error. ${error}`);
+        console.log(error.stack, "debug");
+    });
+    
+    worker3.on("exit", (code) => {
+        console.error(`[worker3] Closed with code ${code}`);
+    });
+    
+    worker3.on("online", () => {
+        console.log("[worker3] Started");
+    });
+
 });
 
 worker2.on("online", () => {

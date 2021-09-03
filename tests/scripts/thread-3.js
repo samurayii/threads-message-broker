@@ -1,15 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const broker = require("../../dist/index").Broker;
 
-setInterval( () => {
-    console.log("thread-1 console");
-}, 5000);
-
 broker.subscribe("event:2", (data) => {
     console.log(`(event:2) ${data}`);
 });
 
+setInterval( () => {
+    console.log("thread-3 console");
+}, 5000);
+
 setTimeout( () => {
-    broker.publish("event:2", "hello from worker1");
-    broker.publish("event:2", "hello from worker1 (hide)", true);
-}, 7000);
+    broker.publish("event:2", "hello from worker3");
+    broker.publish("event:2", "hello from worker3 (hide)", true);
+}, 3000);
