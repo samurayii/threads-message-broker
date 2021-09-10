@@ -25,11 +25,14 @@ export class ThreadsMessageBrokerLocalSubscriber implements IThreadsMessageBroke
         return "local";
     }
 
-    emit (data: unknown): void {
+    emit (type: "trigger" | "publish", data: unknown): void {
         setImmediate(() => {
-            this._fn(data);
+            if (type === "trigger") {
+                this._fn();
+            } else {
+                this._fn(data);
+            }
         });
-
     }
 
 }

@@ -31,7 +31,20 @@ export class ThreadsMessageBrokerSlave implements IThreadsMessageBroker {
         
                 for (const id_subscriber in this._subscribers_list[message.event]) {
                     const subscriber = this._subscribers_list[message.event][id_subscriber];
-                    subscriber.emit(message.data);
+                    subscriber.emit("publish", message.data);
+                }
+
+            }
+
+            if (message.command === "trigger") {
+
+                if (this._subscribers_list[message.event] === undefined) {
+                    return;
+                }
+        
+                for (const id_subscriber in this._subscribers_list[message.event]) {
+                    const subscriber = this._subscribers_list[message.event][id_subscriber];
+                    subscriber.emit("trigger");
                 }
 
             }
@@ -41,11 +54,19 @@ export class ThreadsMessageBrokerSlave implements IThreadsMessageBroker {
     }
 
     publish (event_name: string, data: unknown, local_flag: boolean = false): void {
+        this._emit("publish", event_name, local_flag, data);
+    }
+
+    trigger (event_name: string, local_flag: boolean = false): void {
+        this._emit("trigger", event_name, local_flag);
+    }
+
+    private _emit (type: "publish" | "trigger", event_name: string, local_flag: boolean = false, data: unknown = undefined): void {
 
         if (this._subscribers_list[event_name] !== undefined) {
             for (const id_subscriber in this._subscribers_list[event_name]) {
                 const subscriber = this._subscribers_list[event_name][id_subscriber];
-                subscriber.emit(data);
+                subscriber.emit(type, data);
             }
         }
         
@@ -53,14 +74,18 @@ export class ThreadsMessageBrokerSlave implements IThreadsMessageBroker {
             return;
         }
 
-        const parent_message: IThreadsMessageBrokerMessage = {
-            command: "publish",
+        const message: IThreadsMessageBrokerMessage = {
+            command: type,
             event: event_name,
-            worker: null,
-            data: data
+            worker: null
         };
 
-        worker_threads.parentPort.postMessage(JSON.stringify(parent_message));
+        if (type === "publish") {
+            message.data = data;
+        }
+
+        worker_threads.parentPort.postMessage(JSON.stringify(message));
+
     }
 
     // eslint-disable-next-line @typescript-eslint/ban-types

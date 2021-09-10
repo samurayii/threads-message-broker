@@ -111,7 +111,22 @@ export class ThreadsMessageBrokerMaster implements IThreadsMessageBroker {
                 for (const id_subscriber in this._subscribers_list[message.event]) {
                     const subscriber = this._subscribers_list[message.event][id_subscriber];
                     if (subscriber.worker !== worker_name) {
-                        subscriber.emit(message.data);
+                        subscriber.emit("publish", message.data);
+                    }
+                }
+
+            }
+
+            if (message.command === "trigger") {
+
+                if (this._subscribers_list[message.event] === undefined) {
+                    return;
+                }
+      
+                for (const id_subscriber in this._subscribers_list[message.event]) {
+                    const subscriber = this._subscribers_list[message.event][id_subscriber];
+                    if (subscriber.worker !== worker_name) {
+                        subscriber.emit("trigger");
                     }
                 }
 
@@ -143,12 +158,25 @@ export class ThreadsMessageBrokerMaster implements IThreadsMessageBroker {
             return;
         }
 
+        this._emit("publish", event_name, local_flag, data);
+    }
+
+    trigger (event_name: string, local_flag: boolean = false): void {
+
+        if (this._subscribers_list[event_name] === undefined) {
+            return;
+        }
+
+        this._emit("trigger", event_name, local_flag);
+    }
+
+    private _emit (type: "publish" | "trigger", event_name: string, local_flag: boolean = false, data: unknown = undefined): void {
         for (const id_subscriber in this._subscribers_list[event_name]) {
             const subscriber = this._subscribers_list[event_name][id_subscriber];
             if (subscriber.type !== "local" && local_flag === true) {
                 continue;
             }
-            subscriber.emit(data);
+            subscriber.emit(type, data);
         }
     }
 

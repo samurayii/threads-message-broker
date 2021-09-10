@@ -26,15 +26,18 @@ export class ThreadsMessageBrokerThreadSubscriber implements IThreadsMessageBrok
         return "thread";
     }
 
-    emit (data: unknown): void {
+    emit (type: "trigger" | "publish", data: unknown): void {
 
         const message: IThreadsMessageBrokerMessage = {
-            command: "publish",
+            command: type,
             worker: null,
             event: this._event,
-            id_subscriber: this._id,
-            data: data
+            id_subscriber: this._id
         };
+
+        if (type === "publish") {
+            message.data = data;
+        }
 
         this._worker.postMessage(JSON.stringify(message));
     }

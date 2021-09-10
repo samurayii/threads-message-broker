@@ -1,6 +1,6 @@
 {
     "name": "threads-message-broker",
-    "version": "0.2.2",
+    "version": "0.3.2",
     "description": "Message broker for threads",
     "main": "index.js",
     "scripts": {
@@ -29,14 +29,14 @@
     },
     "homepage": "https://github.com/samurayii/threads-message-broker.git#readme",
     "devDependencies": {
-        "@types/node": "^16.7.10",
+        "@types/node": "^16.9.1",
         "@types/uuid": "^8.3.1",
-        "@typescript-eslint/eslint-plugin": "^4.30.0",
-        "@typescript-eslint/parser": "^4.30.0",
+        "@typescript-eslint/eslint-plugin": "^4.31.0",
+        "@typescript-eslint/parser": "^4.31.0",
         "eslint": "^7.32.0",
         "files-copier": "^0.1.1",
         "json-key-remover": "^0.0.3",
-        "npm-check-updates": "^11.8.4",
+        "npm-check-updates": "^11.8.5",
         "rimraf": "^3.0.2",
         "ts-node": "^10.2.1",
         "typescript": "^4.4.2"
