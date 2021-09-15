@@ -1,6 +1,6 @@
 import * as worker_threads from "worker_threads";
 import * as path from "path";
-import { Broker as broker } from "../../src";
+import { broker } from "../../src";
 
 const worker1 = new worker_threads.Worker(path.resolve(__dirname, "./thread-1.js"), { 
     workerData: "{}",

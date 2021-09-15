@@ -5,16 +5,12 @@ import { ThreadsMessageBrokerSlave } from "./lib/threads-message-broker-slave";
 
 export * from "./interfaces";
 
-let Broker: IThreadsMessageBroker;
+let Broker;
 
 if (worker_threads.isMainThread === true) {
-    Broker = new ThreadsMessageBrokerMaster();
+    Broker = ThreadsMessageBrokerMaster;
 } else {
-    Broker = new ThreadsMessageBrokerSlave();
+    Broker = ThreadsMessageBrokerSlave;
 }
 
-export default Broker;
-
-export {
-    Broker
-};
+export const broker: IThreadsMessageBroker = new Broker();
