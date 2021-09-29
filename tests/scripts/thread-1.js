@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const broker = require("../../dist/index").Broker;
+const { broker } = require("../../dist/index");
 
 setInterval( () => {
     console.log("thread-1 console");

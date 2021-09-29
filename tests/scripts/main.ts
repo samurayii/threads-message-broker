@@ -16,6 +16,7 @@ const worker2 = new worker_threads.Worker(path.resolve(__dirname, "./thread-2.js
     stdin: true
 });
 
+
 broker.addThread("worker1", worker1);
 broker.addThread("worker2", worker2);
 
