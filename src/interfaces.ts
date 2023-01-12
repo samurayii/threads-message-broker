@@ -2,6 +2,7 @@ import { Worker } from "worker_threads";
 
 export interface IThreadsMessageBroker {
     addThread: (worker_name: string, worker: Worker) => void
+    removeThread: (worker_name: string) => void
     publish: (event_name: string, data: unknown, local_flag?: boolean) => void
     trigger: (trigger_name: string, local_flag?: boolean) => void
     // eslint-disable-next-line @typescript-eslint/ban-types

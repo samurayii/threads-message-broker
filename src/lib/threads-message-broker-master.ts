@@ -64,36 +64,12 @@ export class ThreadsMessageBrokerMaster implements IThreadsMessageBroker {
 
         this._threads_list[worker_name] = worker;
 
-        const delete_worker = (worker_name: string) => {
-
-            this._threads_list[worker_name].removeAllListeners();
-            delete this._threads_list[worker_name];
-
-            for (const event_name in this._subscribers_list) {
-
-                const subscribers = this._subscribers_list[event_name];
-
-                for (const id_subscriber in subscribers) {
-                    const subscriber = subscribers[id_subscriber];
-                    if (subscriber.worker === worker_name) {
-                        delete this._subscribers_list[event_name][id_subscriber];
-                    }
-                }
-
-                if (Object.keys(this._subscribers_list[event_name]).length <= 0) {
-                    delete this._subscribers_list[event_name];
-                }
-
-            }
-
-        };
-
         worker.on("error", () => {
-            delete_worker(worker_name);
+            this._delete_worker(worker_name);
         });
 
         worker.on("exit", () => {
-            delete_worker(worker_name);
+            this._delete_worker(worker_name);
         });
 
         worker.on("message", (data: string) => {
@@ -150,6 +126,36 @@ export class ThreadsMessageBrokerMaster implements IThreadsMessageBroker {
             
         });
 
+    }
+
+    removeThread (worker_name: string): void {
+        if (this._threads_list[worker_name] === undefined) {
+            return;
+        }
+        this._delete_worker(worker_name);
+    }
+
+    private _delete_worker (worker_name: string): void {
+
+        this._threads_list[worker_name].removeAllListeners();
+        delete this._threads_list[worker_name];
+
+        for (const event_name in this._subscribers_list) {
+
+            const subscribers = this._subscribers_list[event_name];
+
+            for (const id_subscriber in subscribers) {
+                const subscriber = subscribers[id_subscriber];
+                if (subscriber.worker === worker_name) {
+                    delete this._subscribers_list[event_name][id_subscriber];
+                }
+            }
+
+            if (Object.keys(this._subscribers_list[event_name]).length <= 0) {
+                delete this._subscribers_list[event_name];
+            }
+
+        }
     }
 
     publish (event_name: string, data: unknown, local_flag: boolean = false): void {

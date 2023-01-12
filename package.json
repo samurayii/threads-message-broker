@@ -1,6 +1,6 @@
 {
     "name": "threads-message-broker",
-    "version": "0.5.4",
+    "version": "0.6.4",
     "description": "Message broker for threads",
     "main": "index.js",
     "scripts": {

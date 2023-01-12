@@ -139,5 +139,9 @@ export class ThreadsMessageBrokerSlave implements IThreadsMessageBroker {
     addThread (): void {
         throw new Error("Thread is not main");
     }
+
+    removeThread (): void {
+        throw new Error("Thread is not main");
+    }
    
 }
